@@ -6,7 +6,7 @@
       "genre": "Classic",
       "publishedYear": 1925,
       "description": "A novel about the American dream and the tragic story of Jay Gatsby.",
-      "coverImage": "https://example.com/images/great-gatsby.jpg"
+      "coverImage": "/bookcover/book2.png"
     },
     {
       "id": 2,
@@ -15,7 +15,7 @@
       "genre": "Fiction",
       "publishedYear": 1960,
       "description": "A powerful tale of racial injustice in the American South.",
-      "coverImage": "https://example.com/images/to-kill-a-mockingbird.jpg"
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 3,
@@ -24,7 +24,7 @@
       "genre": "Dystopian",
       "publishedYear": 1949,
       "description": "A chilling vision of a totalitarian future society.",
-      "coverImage": "https://example.com/images/1984.jpg"
+      "coverImage": "/bookcover/book2.png"
     },
     {
       "id": 4,
@@ -33,7 +33,7 @@
       "genre": "Romance",
       "publishedYear": 1813,
       "description": "A witty exploration of the social classes and relationships of the time.",
-      "coverImage": "https://example.com/images/pride-and-prejudice.jpg"
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 5,
@@ -42,7 +42,7 @@
       "genre": "Fiction",
       "publishedYear": 1951,
       "description": "A story about the struggles of adolescence and alienation.",
-      "coverImage": "https://example.com/images/catcher-in-the-rye.jpg"
+      "coverImage": "/bookcover/book2.png"
     },
     {
       "id": 6,
@@ -51,7 +51,7 @@
       "genre": "Fantasy",
       "publishedYear": 1937,
       "description": "The adventurous tale of Bilbo Baggins and his quest to the Lonely Mountain.",
-      "coverImage": "https://example.com/images/the-hobbit.jpg"
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 7,
@@ -60,7 +60,7 @@
       "genre": "Adventure",
       "publishedYear": 1851,
       "description": "The epic tale of Captain Ahab's quest for revenge against the white whale.",
-      "coverImage": "https://example.com/images/moby-dick.jpg"
+      "coverImage": "/bookcover/book2.png"
     },
     {
       "id": 8,
@@ -69,7 +69,7 @@
       "genre": "Fantasy",
       "publishedYear": 1997,
       "description": "The magical story of Harry Potter's first year at Hogwarts School of Witchcraft and Wizardry.",
-      "coverImage": "https://example.com/images/harry-potter.jpg"
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 9,
@@ -78,7 +78,7 @@
       "genre": "Philosophy",
       "publishedYear": 1988,
       "description": "A journey of self-discovery and following one's dreams.",
-      "coverImage": "https://example.com/images/the-alchemist.jpg"
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 10,
@@ -87,7 +87,7 @@
       "genre": "Post-Apocalyptic",
       "publishedYear": 2006,
       "description": "A harrowing tale of survival and hope in a desolate world.",
-      "coverImage": "https://example.com/images/the-road.jpg"
+      "coverImage": "/bookcover/book1.png"
     }
   ]
   

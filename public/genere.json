@@ -1,0 +1,35 @@
+[
+    {
+      "id": 2,
+      "name": "Classic"
+    },
+    {
+      "id": 3,
+      "name": "Fiction"
+    },
+    {
+      "id": 4,
+      "name": "Dystopian"
+    },
+    {
+      "id": 5,
+      "name": "Romance"
+    },
+    {
+      "id": 6,
+      "name": "Fantasy"
+    },
+    {
+      "id": 7,
+      "name": "Adventure"
+    },
+    {
+      "id": 8,
+      "name": "Philosophy"
+    },
+    {
+      "id": 9,
+      "name": "Post-Apocalyptic"
+    }
+  ]
+  

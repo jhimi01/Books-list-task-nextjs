@@ -18,13 +18,13 @@ export default function NotFound() {
         <div className="space-x-3 pt-6">
           <Link
             href="/"
-            className="border border-gray-800 px-4 py-1 hover:bg-gray-800 hover:text-white"
+            className="border border-gray-800 px-4 py-1 hover:bg-gray-800 duration-300 hover:text-white"
           >
             Home
           </Link>
           <button
             onClick={() => router.back()}
-            className="border border-gray-800 px-4 py-[3px] hover:bg-gray-800 hover:text-white"
+            className="border border-gray-800 px-4 py-[3px] hover:bg-gray-800 duration-300 hover:text-white"
           >
             Back
           </button>
