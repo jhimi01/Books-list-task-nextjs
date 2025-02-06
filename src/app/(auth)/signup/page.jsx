@@ -1,9 +1,11 @@
+
+import SignUpForm from '@/components/auth/SignUpForm'
 import React from 'react'
 
 export default function SignUp() {
   return (
     <div>
-      this is a signup page
+      <SignUpForm />
     </div>
   )
 }
