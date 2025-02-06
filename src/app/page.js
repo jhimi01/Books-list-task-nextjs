@@ -1,3 +1,4 @@
+import Searchbar from "@/components/homepage/Searchbar";
 
 
 export default  function Home() {
@@ -5,7 +6,7 @@ export default  function Home() {
 
   return (
    <main>
-   this is a homepage
+   <Searchbar />
    </main>
   );
 }
