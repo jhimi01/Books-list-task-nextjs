@@ -5,7 +5,7 @@
       "author": "F. Scott Fitzgerald",
       "genre": "Classic",
       "publishedYear": 1925,
-      "description": "A novel about the American dream and the tragic story of Jay Gatsby.",
+      "description": "A novel about the American dream and the tragic story of Jay Gatsby. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
       "coverImage": "/bookcover/book2.png"
     },
     {
@@ -14,7 +14,7 @@
       "author": "Harper Lee",
       "genre": "Fiction",
       "publishedYear": 1960,
-      "description": "A powerful tale of racial injustice in the American South.",
+      "description": "A powerful tale of racial injustice in the American South. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
       "coverImage": "/bookcover/book1.png"
     },
     {
@@ -23,8 +23,8 @@
       "author": "George Orwell",
       "genre": "Dystopian",
       "publishedYear": 1949,
-      "description": "A chilling vision of a totalitarian future society.",
-      "coverImage": "/bookcover/book2.png"
+      "description": "A chilling vision of a totalitarian future society. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book3.png"
     },
     {
       "id": 4,
@@ -32,8 +32,8 @@
       "author": "Jane Austen",
       "genre": "Romance",
       "publishedYear": 1813,
-      "description": "A witty exploration of the social classes and relationships of the time.",
-      "coverImage": "/bookcover/book1.png"
+      "description": "A witty exploration of the social classes and relationships of the time. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book4.png"
     },
     {
       "id": 5,
@@ -41,8 +41,8 @@
       "author": "J.D. Salinger",
       "genre": "Fiction",
       "publishedYear": 1951,
-      "description": "A story about the struggles of adolescence and alienation.",
-      "coverImage": "/bookcover/book2.png"
+      "description": "A story about the struggles of adolescence and alienation. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book5.png"
     },
     {
       "id": 6,
@@ -50,8 +50,8 @@
       "author": "J.R.R. Tolkien",
       "genre": "Fantasy",
       "publishedYear": 1937,
-      "description": "The adventurous tale of Bilbo Baggins and his quest to the Lonely Mountain.",
-      "coverImage": "/bookcover/book1.png"
+      "description": "The adventurous tale of Bilbo Baggins and his quest to the Lonely Mountain. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book6.png"
     },
     {
       "id": 7,
@@ -59,8 +59,8 @@
       "author": "Herman Melville",
       "genre": "Adventure",
       "publishedYear": 1851,
-      "description": "The epic tale of Captain Ahab's quest for revenge against the white whale.",
-      "coverImage": "/bookcover/book2.png"
+      "description": "The epic tale of Captain Ahab's quest for revenge against the white whale. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book1.png"
     },
     {
       "id": 8,
@@ -68,8 +68,8 @@
       "author": "J.K. Rowling",
       "genre": "Fantasy",
       "publishedYear": 1997,
-      "description": "The magical story of Harry Potter's first year at Hogwarts School of Witchcraft and Wizardry.",
-      "coverImage": "/bookcover/book1.png"
+      "description": "The magical story of Harry Potter's first year at Hogwarts School of Witchcraft and Wizardry. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book2.png"
     },
     {
       "id": 9,
@@ -77,8 +77,8 @@
       "author": "Paulo Coelho",
       "genre": "Philosophy",
       "publishedYear": 1988,
-      "description": "A journey of self-discovery and following one's dreams.",
-      "coverImage": "/bookcover/book1.png"
+      "description": "A journey of self-discovery and following one's dreams. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book3.png"
     },
     {
       "id": 10,
@@ -86,8 +86,8 @@
       "author": "Cormac McCarthy",
       "genre": "Post-Apocalyptic",
       "publishedYear": 2006,
-      "description": "A harrowing tale of survival and hope in a desolate world.",
-      "coverImage": "/bookcover/book1.png"
+      "description": "A harrowing tale of survival and hope in a desolate world. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pulvinar, tortor quis varius pretium est felis scelerisque nulla, vitae placerat justo nunc a massa. Aenean nec montes vestibulum urna vel imperdiet ipsum. Orci varius natoque penatibus et magnis dis ridicul parturient montes.",
+      "coverImage": "/bookcover/book4.png"
     }
   ]
   

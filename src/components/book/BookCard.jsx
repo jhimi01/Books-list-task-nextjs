@@ -1,10 +1,12 @@
 import { Heart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function BookCard({ book, isRowLayout }) {
   //   console.log(book.coverImage);
   return (
+    // <Link href={`/bookdetail/${book?.id}`}>
     <div
       key={book.id}
       className={`${
@@ -56,5 +58,6 @@ export default function BookCard({ book, isRowLayout }) {
         </div>
       </div>
     </div>
+    // </Link> 
   );
 }

@@ -18,7 +18,8 @@ export default function Searchbar() {
 
   return (
     <div className="py-20 bg-gray-200">
-      <div className="wrapper flex items-center justify-center">
+      <div className="wrapper flex flex-col items-center justify-center">
+        <h2 className="capitalize text-2xl font-semibold mb-3">explore books</h2>
        <div className="flex md:w-2/3">
          {/* Genre Dropdown */}
          <select
