@@ -1,14 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarBooks from "./SidebarBooks";
-import books from "../../../public/booklist.json";
+// import books from "../../../public/booklist.json";
 import BookCard from "../book/BookCard";
 import { Grid2X2, ListFilter, Rows } from "lucide-react";
 import Link from "next/link";
+import { bookStore } from "@/store/books";
 
 export default function BooksSection() {
   // State to manage the layout (grid or row)
   const [isRowLayout, setIsRowLayout] = useState(false);
+    const books = bookStore((state) => state.books);
+    const fetchbooks = bookStore((state) => state.fetchbooks);
+
+     useEffect(() => {
+        fetchbooks(); // Fetch genres on component mount
+      }, [fetchbooks]);
+    
 
   // Function to toggle the layout
   const toggleLayout = () => {
@@ -49,7 +57,7 @@ export default function BooksSection() {
         </div>
 
         {/* Book Cards */}
-        {books.length > 0 ? (
+        {books?.length > 0 ? (
           <div
             className={`${
               isRowLayout ? "flex flex-col gap-3" : "grid grid-cols-3 gap-6"

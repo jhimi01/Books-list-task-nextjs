@@ -18,7 +18,7 @@ export default function BookCard({ book, isRowLayout }) {
           isRowLayout ? "top-0 right-0" : "top-1 right-1"
         } absolute  bg-primary-800 py-1 px-3 text-white`}
       >
-        {book.genre}
+        {book.genreName}
       </div>
       <Image
         alt="book cover"
@@ -58,6 +58,6 @@ export default function BookCard({ book, isRowLayout }) {
         </div>
       </div>
     </div>
-    // </Link> 
+    // </Link>
   );
 }

@@ -4,8 +4,10 @@ import books from "../.././../../public/booklist.json";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Heart, Star, StarHalf } from "lucide-react";
+import { bookStore } from "@/store/books";
 
 export default function BookDetail({ params }) {
+  const books = bookStore((state) => state.books);
   const { id } = useParams(); // Get the book ID from the URL
 
   console.log("id: ", id);
@@ -16,6 +18,8 @@ export default function BookDetail({ params }) {
   if (!book) {
     return <div>Book not found</div>;
   }
+
+  console.log("book: ", book);
 
   return (
     <div className="wrapper mt-10">
@@ -50,7 +54,7 @@ export default function BookDetail({ params }) {
             <p className="text-gray-600 text-lg mb-2">
               <span className="font-semibold">Genre:</span>{" "}
               <span className="bg-primary-800 text-white px-3 py-1">
-                {book.genre}
+                {book.genreName}
               </span>
             </p>
             <p className="text-gray-600 text-lg mb-4">
