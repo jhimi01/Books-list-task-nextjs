@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ValidateButton from "./ValidateButton";
+import LogOut from "../auth/LogOut";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -14,8 +16,8 @@ export default function Navbar() {
           ? "hidden"
           : "bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg"
       }`}
-      //  className="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg"
     >
+       
       <div className="wrapper flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center space-x-3">
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -94,6 +96,7 @@ export default function Navbar() {
                 Contact
               </Link>
             </li>
+            <LogOut />
           </ul>
         </div>
       </div>

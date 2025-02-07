@@ -12,25 +12,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id            String    @id @default(uuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?   // Add this line
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  books         Book[]
-  favorites     FavoriteBook[]
-  accounts      Account[]
-  sessions      Session[]
+  id           String         @id @default(uuid())
+  name         String?
+  email        String         @unique
+  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  books        Book[]
+  favorites    FavoriteBook[]
+  LoggedInUser LoggedInUser?
 }
 
+model LoggedInUser {
+  id      String  @id @default(uuid())
+  verifie Boolean
+  token   String
+  userId  String  @unique
+  user    User    @relation(fields: [userId], references: [id])
+}
 
 model Genre {
   id        String   @id @default(cuid())
   name      String   @unique
-  books     Book[]   // One-to-many relation: a genre can have many books
+  books     Book[] // One-to-many relation: a genre can have many books
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -57,40 +63,4 @@ model FavoriteBook {
   book      Book     @relation(fields: [bookId], references: [id])
   bookId    String // Foreign key for Book
   createdAt DateTime @default(now())
-}
-
-// NextAuth models
-model Account {
-  id                 String   @id @default(cuid())
-  userId             String
-  provider           String
-  providerAccountId  String
-  type               String
-  access_token       String?  // Optional fields
-  refresh_token      String?
-  expires_at         Int?
-  scope              String?
-  token_type         String?
-  id_token           String?
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }

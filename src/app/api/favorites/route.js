@@ -16,7 +16,7 @@ export async function POST(req) {
     const existingFavorite = await prisma.favoriteBook.findFirst({
       where: {
         userId: session.user.id,
-        //   bookId: bookId,
+          bookId: bookId,
       },
     });
     if (existingFavorite) {

@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import { Button } from "@/components/ui/button"; // Assuming you have a Shadcn button component
 import { toast } from "react-toastify";
+import { HeartOff } from "lucide-react";
 
 export default function FavoriteTable() {
   const { favorites, loading, error, fetchFavorites } = useFavoritesStore();
@@ -62,7 +63,7 @@ export default function FavoriteTable() {
               <TableHead>Title</TableHead>
               <TableHead>Author</TableHead>
               <TableHead>Date Added</TableHead>
-              <TableHead>Action</TableHead>
+              <TableHead>Remove</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -83,13 +84,12 @@ export default function FavoriteTable() {
                   {new Date(favorite.createdAt).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleRemoveFavorite(favorite.id)}
+                  <button
+                  className="text-primary-800"
+                    onClick={() => handleRemoveFavorite(favorite?.id)}
                   >
-                    Remove
-                  </Button>
+                    <HeartOff size={25} />
+                  </button>
                 </TableCell>
               </TableRow>
             ))}
