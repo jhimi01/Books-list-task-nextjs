@@ -10,13 +10,12 @@ import { bookStore } from "@/store/books";
 export default function BooksSection() {
   // State to manage the layout (grid or row)
   const [isRowLayout, setIsRowLayout] = useState(false);
-    const books = bookStore((state) => state.books);
-    const fetchbooks = bookStore((state) => state.fetchbooks);
+  const books = bookStore((state) => state.books);
+  const fetchbooks = bookStore((state) => state.fetchbooks);
 
-     useEffect(() => {
-        fetchbooks(); // Fetch genres on component mount
-      }, [fetchbooks]);
-    
+  useEffect(() => {
+    fetchbooks(); // Fetch genres on component mount
+  }, [fetchbooks]);
 
   // Function to toggle the layout
   const toggleLayout = () => {
@@ -24,9 +23,9 @@ export default function BooksSection() {
   };
 
   return (
-    <div className="wrapper my-10 flex gap-5">
+    <div className="wrapper my-10 md:flex gap-5">
       {/* Sidebar */}
-      <div className="w-[30%] sticky top-14 h-screen py-3 px-5">
+      <div className="md:w-[30%] md:sticky top-14 md:h-screen py-3 px-5">
         <h2 className="text-2xl mb-5 font-semibold">Browse</h2>
         <SidebarBooks />
       </div>

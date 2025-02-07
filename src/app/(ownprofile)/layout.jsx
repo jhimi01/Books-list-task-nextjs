@@ -5,8 +5,10 @@ import React from 'react'
 export default function layout({ children }) {
   return (
     <div className='flex'>
+      <div className='w-[20%]'>
       <SidebarDashboard />
-      <div className='px-9 py-5 w-full'>{children}</div>
+      </div>
+      <div className='md:px-9 py-14 md:py-5 w-full'>{children}</div>
     </div>
   )
 }

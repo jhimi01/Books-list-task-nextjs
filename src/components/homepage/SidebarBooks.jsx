@@ -18,10 +18,10 @@ export default function SidebarBooks() {
           not found
         </p>
       ) : (
-        <ul className="">
+        <ul className="flex md:flex-col w-full flex-row overflow-x-auto">
           {genres.map((genre) => (
             <li key={genre.id}>
-              <button className="w-full text-start text-gray-600 px-4 py-2 duration-200 hover:bg-primary-700">
+              <button className="w-full font-semibold  text-start text-gray-600 px-4 py-2 duration-200 hover:bg-primary-700">
                 {genre.name}
               </button>
             </li>

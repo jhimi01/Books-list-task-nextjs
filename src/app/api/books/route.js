@@ -1,5 +1,5 @@
-import prisma from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
@@ -12,19 +12,15 @@ export async function GET() {
     console.error("Error fetching genres:", error);
 
     // Return an error response
-    return NextResponse.json({ error: "Failed to fetch genres" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch genres" },
+      { status: 500 }
+    );
   }
 }
 
+export async function postBook(req) {}
 
-export async function postBook(req) {
+export async function updatetBook(req) {}
 
-}
-
-export async function updatetBook(req) {
-
-}
-
-export async function deletetBook(req) {
-
-}
+export async function deletetBook(req) {}

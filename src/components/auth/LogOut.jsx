@@ -1,10 +1,11 @@
 import { doLogout } from '@/app/api/auth/route'
+import { LogOutIcon } from 'lucide-react'
 import React from 'react'
 
 export default function LogOut() {
   return (
     <form action={doLogout}>
-      <button type='submit' className=' font-semibold px-5 duration-300 bg-primary-800 text-white py-2 border-primary-800'>Logout</button>
+      <button type='submit' className='flex items-center gap-4'><LogOutIcon /> Logout</button>
     </form>
   )
 }

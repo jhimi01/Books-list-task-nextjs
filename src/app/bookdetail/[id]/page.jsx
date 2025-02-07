@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import books from "../.././../../public/booklist.json";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -7,19 +7,20 @@ import { Heart, Star, StarHalf } from "lucide-react";
 import { bookStore } from "@/store/books";
 
 export default function BookDetail({ params }) {
-  const books = bookStore((state) => state.books);
+  // const books = bookStore((state) => state.books);
   const { id } = useParams(); // Get the book ID from the URL
+  const fetchBookById = bookStore((state) => state.fetchBookById);
+  const book = bookStore((state) => state.book);
 
-  console.log("id: ", id);
-
-  // Find the book with the matching ID
-  const book = books.find((book) => book.id == id);
+  useEffect(() => {
+    if (id) {
+      fetchBookById(id);
+    }
+  }, [id, fetchBookById]);
 
   if (!book) {
-    return <div>Book not found</div>;
+    return <div>Loading...</div>;
   }
-
-  console.log("book: ", book);
 
   return (
     <div className="wrapper mt-10">
