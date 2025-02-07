@@ -20,7 +20,7 @@ export default function SidebarDashboard() {
 
   const navLinks = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/favorite", label: "Favorite", icon: Heart },
+    { href: "/favorite-book-list", label: "Favorite", icon: Heart },
     { href: "/book-list", label: "Book List", icon: Book },
   ];
 

@@ -1,24 +1,15 @@
+// 'use client'
 import { auth } from "@/auth";
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
-const cookies = new Cookies();
+// import useAuth from "@/hooks/useAuth";
 
 export default async function Dashboard() {
   const session = await auth();
+  // const { session, loading } = useAuth();
 
   if (!session) redirect("/login");
-
-  // Store the session token in a cookie
-  // if (session?.token) {
-  //   cookies.set("sessionToken", session.token, {
-  //     path: "/",
-  //     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days expiration
-  //   });
-  // }
-
-  // console.log(session);
 
   return (
     <div className="flex items-center justify-center flex-col w-full text-center">

@@ -1,17 +1,4 @@
-// import React from 'react'
-
-// export default function BookTable() {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-
 "use client";
-import { MoreHorizontal, Edit, Trash2, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -21,25 +8,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-// import { userStore } from "@/stores/userStore";
-// import { useCookie } from "@/hooks/useCookie";
+
 import { useEffect } from "react";
 import { bookStore } from "@/store/books";
 import Image from "next/image";
 import Link from "next/link";
+import AddFavorite from "../AddFavorite";
 
 export default function BookTable() {
   const books = bookStore((state) => state.books);
-    const fetchbooks = bookStore((state) => state.fetchbooks);
+  const fetchbooks = bookStore((state) => state.fetchbooks);
 
   useEffect(() => {
-    fetchbooks()
+    fetchbooks();
   }, [fetchbooks]);
 
   console.log("all books", books);
@@ -65,7 +46,13 @@ export default function BookTable() {
             <TableRow key={book.id} className="hover:bg-gray-300">
               <TableCell className="font-medium capitalize">
                 <Link href={`/bookdetail/${book.id}`}>
-                <Image src={book?.coverImage} alt="cover img" height={1000} width={1000} className="w-20 h-20 " />
+                  <Image
+                    src={book?.coverImage}
+                    alt="cover img"
+                    height={1000}
+                    width={1000}
+                    className="w-20 h-20 "
+                  />
                 </Link>
               </TableCell>
               <TableCell className="font-medium capitalize">
@@ -83,14 +70,14 @@ export default function BookTable() {
                       : "bg-gray-100 text-gray-800"
                   }`}
                 >
-                    {new Date(book.publishedAt).toLocaleDateString()}
+                  {new Date(book.publishedAt).toLocaleDateString()}
                 </span>
               </TableCell>
               <TableCell>
                 {new Date(book.createdAt).toLocaleDateString()}
               </TableCell>
-              <TableCell className="flex items-center justify-center h-24">
-             <Heart className="text-primary-800" />
+              <TableCell className="flex items-center justify-center text-primary-800 h-24">
+              <AddFavorite bookId={book.id} />
               </TableCell>
             </TableRow>
           ))}

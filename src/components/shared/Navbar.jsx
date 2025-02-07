@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <nav
       className={`${
-        ["/book-list", "/dashboard"].includes(pathname)
+        ["/book-list", "/favorite-book-list", "/dashboard"].includes(pathname)
           ? "hidden"
           : "bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg"
       }`}

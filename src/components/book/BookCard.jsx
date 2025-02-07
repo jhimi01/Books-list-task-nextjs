@@ -2,6 +2,7 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import AddFavorite from "../AddFavorite";
 
 export default function BookCard({ book, isRowLayout }) {
   //   console.log(book.coverImage);
@@ -53,7 +54,7 @@ export default function BookCard({ book, isRowLayout }) {
             Read More
           </button>
           <button className="text-primary-800">
-            <Heart />
+            <AddFavorite />
           </button>
         </div>
       </div>
