@@ -1,9 +1,13 @@
 'use client'
+import { bookStore } from "@/store/books";
+import { genreStore } from "@/store/genre";
 import { Search } from "lucide-react";
 import React, { useState } from "react";
 
 export default function Searchbar() {
     const [selectedGenre, setSelectedGenre] = useState("");
+    // const genres = genreStore((state) => state.genres);
+    const setSearchQuery = bookStore((state) => state.setSearchQuery);
     const genres = [
         "All Genres",
         "Classic",
@@ -36,6 +40,7 @@ export default function Searchbar() {
         <div className="relative flex-grow">
           <input
             type="text"
+            onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
             placeholder="search your favorite book..."
             className="px-4 focus:outline-none focus:border-0 py-2 w-full mx-auto"
           />

@@ -43,7 +43,7 @@ export default function BookCard({ book, isRowLayout }) {
             </p>
             <p className="text-gray-600 text-sm mb-4">
               <span className="font-semibold">Published:</span>
-              {new Date(favorite?.publishedAt).toLocaleDateString()}
+              {new Date(book?.publishedAt).toLocaleDateString()}
             </p>
           </div>
         )}

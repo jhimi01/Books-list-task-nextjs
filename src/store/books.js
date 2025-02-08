@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const bookStore = create((set) => ({
   books: [],
-  book: null, 
+  book: null,
   fetchbooks: async () => {
     try {
       const response = await axios.get("/api/books");
@@ -20,4 +20,6 @@ export const bookStore = create((set) => ({
       console.error(`Error fetching book with id ${id}:`, error);
     }
   },
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query }), 
 }));

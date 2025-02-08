@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 
-const SECRET_KEY = process.env.JWT_SECRET_KEY || "your_secret_key";
+const SECRET_KEY = process.env.JWT_SECRET_KEY || "";
 
 export async function POST(req) {
   try {
@@ -37,7 +37,7 @@ export async function POST(req) {
 
     // Generate JWT token
     const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
 
     // Check if a LoggedInUser record already exists

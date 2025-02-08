@@ -1,10 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SidebarBooks from "./SidebarBooks";
-// import books from "../../../public/booklist.json";
 import BookCard from "../book/BookCard";
 import { Grid2X2, ListFilter, Rows } from "lucide-react";
-import Link from "next/link";
 import { bookStore } from "@/store/books";
 
 export default function BooksSection() {
@@ -12,6 +10,7 @@ export default function BooksSection() {
   const [isRowLayout, setIsRowLayout] = useState(false);
   const books = bookStore((state) => state.books);
   const fetchbooks = bookStore((state) => state.fetchbooks);
+  const searchQuery = bookStore((state) => state.searchQuery);
 
   useEffect(() => {
     fetchbooks(); // Fetch genres on component mount
@@ -21,6 +20,11 @@ export default function BooksSection() {
   const toggleLayout = () => {
     setIsRowLayout(!isRowLayout);
   };
+
+  // Filter books based on the search query
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery)
+  );
 
   return (
     <div className="wrapper my-10 md:flex gap-5">
@@ -37,7 +41,7 @@ export default function BooksSection() {
           <h2 className="text-2xl capitalize mb-5 font-semibold">All Books</h2>
           <div className="flex gap-2">
             <h3 className="text-sm font-semibold">
-              {books?.length} books available
+              {filteredBooks?.length} books available
             </h3>
             <ListFilter className="cursor-pointer" />
             <Grid2X2
@@ -56,14 +60,14 @@ export default function BooksSection() {
         </div>
 
         {/* Book Cards */}
-        {books?.length > 0 ? (
+        {filteredBooks?.length > 0 ? (
           <div
             className={`${
               isRowLayout ? "flex flex-col gap-3" : "grid grid-cols-3 gap-6"
             }`}
           >
-            {books.map((book, index) => (
-                <BookCard book={book} key={index} isRowLayout={isRowLayout} />
+            {filteredBooks.map((book, index) => (
+              <BookCard book={book} key={index} isRowLayout={isRowLayout} />
             ))}
           </div>
         ) : (
