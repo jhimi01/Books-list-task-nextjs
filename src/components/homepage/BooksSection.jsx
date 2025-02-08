@@ -4,6 +4,7 @@ import SidebarBooks from "./SidebarBooks";
 import BookCard from "../book/BookCard";
 import { Grid2X2, ListFilter, Rows } from "lucide-react";
 import { bookStore } from "@/store/books";
+import FilterButton from "./FilterButton";
 
 export default function BooksSection() {
   // State to manage the layout (grid or row)
@@ -38,16 +39,15 @@ export default function BooksSection() {
       </div>
 
       {/* Main Content */}
-      {/* Main Content */}
       <div className="w-full py-3 px-5">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-2xl capitalize mb-5 font-semibold">All Books</h2>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <h3 className="text-sm font-semibold">
               {filteredBooks?.length} books available
             </h3>
-            <ListFilter className="cursor-pointer" />
+            <FilterButton />
             <Grid2X2
               className={`cursor-pointer ${
                 !isRowLayout ? "text-primary-800" : "text-gray-500"

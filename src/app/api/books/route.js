@@ -1,24 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// export async function GET() {
-//   try {
-//     // Fetch genres from the database
-//     const books = await prisma.book.findMany();
-
-//     // Return the genres as a JSON response
-//     return NextResponse.json(books);
-//   } catch (error) {
-//     console.error("Error fetching genres:", error);
-
-//     // Return an error response
-//     return NextResponse.json(
-//       { error: "Failed to fetch genres" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 
 export async function GET(req) {
   try {
@@ -33,7 +15,7 @@ export async function GET(req) {
           genreName: genreName,
         },
         include: {
-          genre: true, // Optional: Include genre details
+          genre: true,
         },
       });
     } else {
