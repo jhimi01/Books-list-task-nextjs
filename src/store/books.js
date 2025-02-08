@@ -8,6 +8,14 @@ export const bookStore = create((set, get) => ({
 
   setSelectedGenre: (genre) => set({ selectedGenre: genre }),
   setSearchQuery: (query) => set({ searchQuery: query }),
+  fetchBookById: async (id) => {
+    try {
+      const response = await axios.get(`/api/books/${id}`);
+      set({ book: response.data });
+    } catch (error) {
+      console.error(`Error fetching book with id ${id}:`, error);
+    }
+  },
 
   fetchbooks: async (genre = null) => {
     try {
