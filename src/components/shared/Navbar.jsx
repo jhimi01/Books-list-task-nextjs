@@ -1,23 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ValidateButton from "./ValidateButton";
 import LogOut from "../auth/LogOut";
+import { useCookie } from "@/hooks/useCookie";
 
 export default function Navbar() {
+  const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const shouldHideNavbar = [
+    "/book-list",
+    "/favorite-book-list",
+    "/dashboard",
+  ].includes(pathname);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { getCookie } = useCookie({ key: "authToken", days: 7 });
+  const authToken = getCookie();
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return null;
+  }
   return (
     <nav
       className={`${
-        ["/book-list", "/favorite-book-list", "/dashboard"].includes(pathname)
+        shouldHideNavbar
           ? "hidden"
           : "bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200 shadow-lg"
       }`}
     >
-       
       <div className="wrapper flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center space-x-3">
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -25,12 +40,29 @@ export default function Navbar() {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0">
-          <Link
-            href="/login"
-            className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center "
-          >
-            Login
-          </Link>
+          <div>
+            {authToken === null ? (
+              <span>Loading...</span>
+            ) : authToken ? (
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/dashboard"
+                  className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center "
+                >
+                  Dashboard
+                </Link>
+                <LogOut />
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center "
+              >
+                Login
+              </Link>
+            )}
+          </div>
+
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
@@ -96,7 +128,6 @@ export default function Navbar() {
                 Contact
               </Link>
             </li>
-            <LogOut />
           </ul>
         </div>
       </div>

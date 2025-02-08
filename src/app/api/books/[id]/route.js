@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 // signle value
 export async function GET(req, { params }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const book = await prisma.book.findUnique({

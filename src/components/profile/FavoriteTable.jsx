@@ -1,6 +1,6 @@
 "use client";
 import { useFavoritesStore } from "@/store/favorites";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,42 +11,50 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { Button } from "@/components/ui/button"; // Assuming you have a Shadcn button component
+import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { HeartOff } from "lucide-react";
+import { useCookie } from "@/hooks/useCookie";
 
 export default function FavoriteTable() {
   const { favorites, loading, error, fetchFavorites } = useFavoritesStore();
+  const [loadingId, setLoadingId] = useState(null);
+  const { getCookie } = useCookie({ key: "authToken", days: 7 });
+  const authToken = getCookie();
 
   const handleRemoveFavorite = async (id) => {
+    setLoadingId(id);
     try {
       const response = await fetch(`/api/favorites/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
       });
   
-    //   const contentType = response.headers.get("content-type");
-  
       if (!response.ok) {
-        // const error = contentType?.includes("application/json")
-        //   ? await response.json()
-        //   : { error: "Unexpected error occurred" };
-        console.error("Failed to remove favorite:", error);
+        const error = await response.json();
         toast.error(error.error || "Failed to remove from favorites.");
         return;
       }
   
       toast.success("Removed from favorites!");
-      fetchFavorites(); // Refresh the favorites list
+      fetchFavorites(authToken); // Refresh the favorites list
     } catch (err) {
       console.error("Error:", err);
       toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoadingId(null);
     }
   };
-  
 
   useEffect(() => {
-    fetchFavorites(); // Fetch the favorite books on component mount
-  }, [fetchFavorites]);
+    if (authToken) {
+      fetchFavorites(authToken);
+    }
+  }, [authToken, fetchFavorites]);
+  
 
   if (loading) return <p>Loading favorites...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -72,7 +80,7 @@ export default function FavoriteTable() {
                 <TableCell>
                   <Image
                     alt="cover"
-                    src={favorite.book.coverImage}
+                    src={favorite.book.coverImage || "/placeholder.png"}
                     width={500}
                     height={500}
                     className="w-14 h-14"
@@ -85,10 +93,11 @@ export default function FavoriteTable() {
                 </TableCell>
                 <TableCell>
                   <button
-                  className="text-primary-800"
+                    className="text-primary-800"
                     onClick={() => handleRemoveFavorite(favorite?.id)}
+                    disabled={loadingId === favorite?.id}
                   >
-                    <HeartOff size={25} />
+                    {loadingId === favorite?.id ? "Removing..." : <HeartOff size={25} />}
                   </button>
                 </TableCell>
               </TableRow>

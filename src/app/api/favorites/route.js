@@ -1,10 +1,21 @@
 import prisma from "@/lib/prisma"; // Assuming you have a Prisma client setup
-import { auth } from "@/auth";
+import jwt from "jsonwebtoken";
 
 export async function POST(req) {
-    const session = await auth();
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) throw new Error("Authorization header missing");
 
-  if (!session) {
+  const token = authHeader.split(" ")[1];
+  if (!token) throw new Error("Token missing");
+
+  if (!process.env.JWT_SECRET_KEY) {
+    throw new Error("JWT secret key is missing");
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  const userId = decoded?.id; // Ensure id exists in decoded token
+
+  if (!token) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,
     });
@@ -15,8 +26,8 @@ export async function POST(req) {
   try {
     const existingFavorite = await prisma.favoriteBook.findFirst({
       where: {
-        userId: session.user.id,
-          bookId: bookId,
+        userId,
+        bookId: bookId,
       },
     });
     if (existingFavorite) {
@@ -28,7 +39,7 @@ export async function POST(req) {
 
     const favorite = await prisma.favoriteBook.create({
       data: {
-        userId: session.user.id, // Assuming `session.user.id` contains the logged-in user ID
+        userId, // Assuming `session.user.id` contains the logged-in user ID
         bookId,
       },
     });
@@ -43,20 +54,33 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
-  const session = await auth();
+export async function GET(req) {
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) throw new Error("Authorization header missing");
 
-  if (!session) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-    });
+  const token = authHeader.split(" ")[1];
+  if (!token) throw new Error("Token missing");
+
+  if (!process.env.JWT_SECRET_KEY) {
+    throw new Error("JWT secret key is missing");
   }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  const userId = decoded?.id; // Ensure id exists in decoded token
+
+  if (!token) {
+    return new Response(
+      JSON.stringify({ error: "Missing authentication token" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+  
 
   try {
     // Fetch the user's favorite books
     const favoriteBooks = await prisma.favoriteBook.findMany({
       where: {
-        userId: session.user.id,
+        userId,
       },
       include: {
         book: true, // Assuming you have a relation with the `book` model for additional details
@@ -74,3 +98,27 @@ export async function GET() {
 }
 
 
+// export async function GET(req, res) {
+//   try {
+//     const token = req.headers.authorization?.split(" ")[1];
+
+//     if (!token) {
+//       return res.status(401).json({ error: "Authorization token missing" });
+//     }
+
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+//     const userId = decoded?.id; // Ensure `id` exists in the token payload
+
+//     if (!userId) {
+//       return res.status(403).json({ error: "Invalid token" });
+//     }
+
+//     // Proceed with fetching favorites using userId
+//     const favorites = await getFavoritesByUserId(userId);
+//     // return res.status(200).json(favorites);
+//     return new Response(JSON.stringify(favorites), { status: 200 });
+//   } catch (error) {
+//     console.error("Error verifying token:", error);
+//     return res.status(500).json({ error: error.message });
+//   }
+// }

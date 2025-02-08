@@ -63,9 +63,7 @@ export default function BooksSection() {
             }`}
           >
             {books.map((book, index) => (
-              <Link href={`/bookdetail/${book?.id}`} key={index}>
-                <BookCard book={book} isRowLayout={isRowLayout} />
-              </Link>
+                <BookCard book={book} key={index} isRowLayout={isRowLayout} />
             ))}
           </div>
         ) : (

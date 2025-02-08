@@ -19,14 +19,12 @@ export default function LoginForm() {
   const router = useRouter();
   const { setCookie } = useCookie({ key: "authToken", days: 7 });
 
-
   // console.log(require('crypto').randomBytes(32).toString('base64'))
 
   const onSubmit = async (data) => {
     try {
       setLoading(true);
       setError("");
-      // Replace with your backend endpoint
       const response = await axios.post("/api/auth/login", {
         email: data.email,
         password: data.password,
@@ -36,9 +34,11 @@ export default function LoginForm() {
       console.log("Login successful:", response.data);
       toast.success(response.data.message);
       router.push("/dashboard");
-      setCookie(response.data.token)
+      setCookie(response.data.token);
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred during login.");
+      setError(
+        err.response?.data?.message || "An error occurred during login."
+      );
     } finally {
       setLoading(false);
     }
@@ -52,10 +52,7 @@ export default function LoginForm() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Log in to your account
             </h1>
-            <form
-              className="space-y-4"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               {/* Email */}
               <div>
                 <label
@@ -109,9 +106,7 @@ export default function LoginForm() {
               </div>
 
               {/* Error Message */}
-              {error && (
-                <p className="text-red-500 text-sm">{error}</p>
-              )}
+              {error && <p className="text-red-500 text-sm">{error}</p>}
 
               {/* Submit Button */}
               <button
