@@ -1,44 +1,44 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-
 export async function GET(req) {
   try {
     const url = new URL(req.url);
-    const genreName = url.searchParams.get('genre');
+    const genreName = url.searchParams.get("genre");
+    const filterType = url.searchParams.get("filter");
 
-    let books;
+    // Construct the `where` and `orderBy` conditions dynamically
+    const where = {};
+    const orderBy = [];
+
     if (genreName) {
-      // Fetch books by the specified genre
-      books = await prisma.book.findMany({
-        where: {
-          genreName: genreName,
-        },
-        include: {
-          genre: true,
-        },
-      });
-    } else {
-      // Fetch all books if no genre is specified
-      books = await prisma.book.findMany({
-        include: {
-          genre: true,
-        },
-      });
+      where.genreName = genreName; // Filter by genre
     }
+
+    if (filterType === "earlier") {
+      orderBy.push({ publishedAt: "asc" }); // Sort by publishedAt (oldest first)
+    } else if (filterType === "older") {
+      orderBy.push({ publishedAt: "desc" }); // Sort by publishedAt (newest first)
+    }
+
+    // Fetch books from Prisma based on the constructed query
+    const books = await prisma.book.findMany({
+      where,
+      orderBy,
+      include: {
+        genre: true, // Include related genre information
+      },
+    });
 
     // Return the books as a JSON response
     return NextResponse.json(books);
   } catch (error) {
-    console.error('Error fetching books:', error);
+    console.error("Error fetching books:", error);
 
     // Return an error response
-    return NextResponse.json({ error: 'Failed to fetch books' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch books" },
+      { status: 500 }
+    );
   }
 }
-
-export async function postBook(req) {}
-
-export async function updatetBook(req) {}
-
-export async function deletetBook(req) {}

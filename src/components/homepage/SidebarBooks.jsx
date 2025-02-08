@@ -15,9 +15,14 @@ export default function SidebarBooks() {
     fetchGenres(); // Fetch genres on component mount
   }, [fetchGenres]);
 
-  const handleGenreClick = (genreName) => {
-    setSelectedGenre(genreName); // Update the selected genre
-    fetchbooks(genreName); // Fetch books for the selected genre
+  // const handleGenreClick = (genreName) => {
+  //   setSelectedGenre(genreName); // Update the selected genre
+  //   fetchbooks(genreName); // Fetch books for the selected genre
+  // };
+
+  const handleGenreSelect = async (genre) => {
+    setSelectedGenre(genre); // Update the selected genre in the store
+    await fetchbooks(genre); // Fetch books based on selected genre
   };
 
   return (
@@ -37,7 +42,7 @@ export default function SidebarBooks() {
                   ? "bg-primary-800 text-white"
                   : "text-gray-600 hover:bg-primary-700 hover:text-white"
               }`}
-              onClick={() => handleGenreClick(null)} // Fetch all books
+              onClick={() => handleGenreSelect(null)} // Fetch all books
             >
               All
             </button>
@@ -52,7 +57,7 @@ export default function SidebarBooks() {
                     ? "bg-primary-800 text-white"
                     : "text-gray-600 hover:bg-primary-700 hover:text-white"
                 }`}
-                onClick={() => handleGenreClick(genre.name)}
+                onClick={() => handleGenreSelect(genre.name)}
               >
                 {genre.name}
               </button>

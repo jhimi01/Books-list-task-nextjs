@@ -1,39 +1,41 @@
-import {
-  BookCheck,
-  Edit,
-  ListFilter,
-  MoreHorizontal,
-  Trash2,
-} from "lucide-react";
+"use client";
 import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+import { bookStore } from "@/store/books";
+import { ListFilter } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 
 export default function FilterButton() {
+    const fetchbooks = bookStore((state) => state.fetchbooks);
+  const selectedGenre = bookStore((state) => state.selectedGenre); 
+
+  // Function to handle filtering
+  const handleFilter = async (filterType) => {
+    try {
+      // Pass both genre and filterType to the fetchbooks function
+      await fetchbooks(selectedGenre, filterType);
+    } catch (error) {
+      console.error("Error applying filters:", error);
+    }
+  };
+
+
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="focus:outline-0 focus:border-0">
-            <ListFilter className="cursor-pointer text-2xl" />
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <BookCheck /> Published Earlier
-          </DropdownMenuItem>
-          <Separator />
-          <DropdownMenuItem className="text-primary-800">
-            <BookCheck /> Published Older
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="focus:outline-0 focus:border-0">
+          <ListFilter className="cursor-pointer text-2xl" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => handleFilter("earlier")}>
+          Published Earlier
+        </DropdownMenuItem>
+        <Separator />
+        <DropdownMenuItem onClick={() => handleFilter("older")}>
+          Published Older
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
