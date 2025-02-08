@@ -1,37 +1,25 @@
 import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken"; // Ensure you have this installed
 
 export async function middleware(req) {
-  const token = req.cookies.get("authToken")?.value; // Retrieve the token from cookies
-  const { pathname } = req.nextUrl;
+  const token = req.cookies.get("authToken")?.value;
 
-  // Helper function to validate the token
-  const isValidToken = (token) => {
-    if (!token) return false;
-    try {
-      // Replace "your_secret_key" with your actual JWT secret key
-      jwt.verify(token, process.env.JWT_SECRET_KEY);
-      return true;
-    } catch (err) {
-      return false; // Token is invalid or expired
-    }
-  };
+  // const { pathname } = req.nextUrl;
 
-  if (pathname.startsWith("/dashboard")) {
-    // Redirect to login if the token is missing or invalid
-    if (!isValidToken(token)) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-  }
+  // if (pathname.startsWith("/profile")) {
+    // If no token or no user data, redirect to login
+    // if (!token) {
+    //   return NextResponse.redirect(new URL("/login", req.url));
+    // }
+  // }
 
-  if (pathname.startsWith("/login")) {
-    // If a valid token exists, redirect to the homepage
-    if (isValidToken(token)) {
+  // if (pathname.startsWith("/login")) {
+    // If both token and user exist, redirect to profile
+    if (token) {
       return NextResponse.redirect(new URL("/", req.url));
     }
-  }
+  // }
 
-  return NextResponse.next(); // Allow the request to continue
+  return NextResponse.next(); // Continue if no redirection is needed
 }
 
-export const config = { matcher: ["/dashboard", "/login"] };
+export const config = { matcher: ["/profile", "/login"] };

@@ -24,9 +24,9 @@ export default function Searchbar() {
     <div className="py-20 bg-gray-200">
       <div className="wrapper flex flex-col items-center justify-center">
         <h2 className="capitalize text-2xl font-semibold mb-3">explore books</h2>
-       <div className="flex md:w-2/3">
+       <div className="flex md:w-[50%]">
          {/* Genre Dropdown */}
-         <select
+         {/* <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
             className="px-3 py-2 focus:outline-0 border-r bg-white"
@@ -36,7 +36,7 @@ export default function Searchbar() {
                 {genre}
               </option>
             ))}
-          </select>
+          </select> */}
         <div className="relative flex-grow">
           <input
             type="text"

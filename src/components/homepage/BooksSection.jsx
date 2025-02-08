@@ -8,12 +8,15 @@ import { bookStore } from "@/store/books";
 export default function BooksSection() {
   // State to manage the layout (grid or row)
   const [isRowLayout, setIsRowLayout] = useState(false);
+
+  // Accessing store values
   const books = bookStore((state) => state.books);
   const fetchbooks = bookStore((state) => state.fetchbooks);
   const searchQuery = bookStore((state) => state.searchQuery);
 
+  // Fetch books when the component mounts
   useEffect(() => {
-    fetchbooks(); // Fetch genres on component mount
+    fetchbooks(); // Fetch all books on initial load
   }, [fetchbooks]);
 
   // Function to toggle the layout
@@ -21,9 +24,9 @@ export default function BooksSection() {
     setIsRowLayout(!isRowLayout);
   };
 
-  // Filter books based on the search query
+  // Combine search and genre filtering
   const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchQuery)
+    book.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -34,6 +37,7 @@ export default function BooksSection() {
         <SidebarBooks />
       </div>
 
+      {/* Main Content */}
       {/* Main Content */}
       <div className="w-full py-3 px-5">
         {/* Header */}
@@ -59,19 +63,23 @@ export default function BooksSection() {
           </div>
         </div>
 
-        {/* Book Cards */}
-        {filteredBooks?.length > 0 ? (
-          <div
-            className={`${
-              isRowLayout ? "flex flex-col gap-3" : "grid grid-cols-3 gap-6"
+        {/* Books Section */}
+        {!filteredBooks || filteredBooks.length === 0 ? (
+          <p className="text-center font-semibold py-5 capitalize text-gray-600">
+            No books available
+          </p>
+        ) : (
+          <ul
+            className={`grid ${
+              isRowLayout
+                ? "grid-cols-1 gap-4"
+                : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
             }`}
           >
             {filteredBooks.map((book, index) => (
               <BookCard book={book} key={index} isRowLayout={isRowLayout} />
             ))}
-          </div>
-        ) : (
-          <p>No books found</p>
+          </ul>
         )}
       </div>
     </div>
