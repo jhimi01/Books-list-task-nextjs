@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 export default function SidebarBooks() {
   const genres = genreStore((state) => state.genres);
+
+  console.log('genres', genres)
   const fetchGenres = genreStore((state) => state.fetchGenres);
   const fetchbooks = bookStore((state) => state.fetchbooks);
 

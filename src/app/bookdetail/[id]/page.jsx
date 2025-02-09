@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Heart, Star, StarHalf } from "lucide-react";
 import { bookStore } from "@/store/books";
+import AddFavorite from "@/components/AddFavorite";
 
 export default function BookDetail({ params }) {
   // const books = bookStore((state) => state.books);
@@ -60,14 +61,14 @@ export default function BookDetail({ params }) {
             </p>
             <p className="text-gray-600 text-lg mb-4">
               <span className="font-semibold">Published:</span>{" "}
-              {book.publishedYear}
+              {new Date(book?.publishedAt).toLocaleDateString()}
             </p>
             <p className="text-gray-700 text-lg leading-relaxed">
               {book.description}
             </p>
 
             <button className="hover:bg-primary-700  flex item-center px-4 py-2 bg-primary-800 duration-300 gap-2 text-white font-semibold mt-4">
-              Add to favorite <Heart />
+              Add to favorite <AddFavorite bookId={book?.id} />
             </button>
           </div>
         </div>

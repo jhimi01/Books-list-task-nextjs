@@ -13,6 +13,7 @@ export default function Navbar() {
     "/dashboard/favorite-book-list",
     "/dashboard",
     "/dashboard/profile",
+    "/dashboard/add-book",
   ].includes(pathname);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

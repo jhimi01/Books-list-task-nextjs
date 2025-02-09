@@ -1,10 +1,10 @@
-import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import AddFavorite from "../AddFavorite";
 
 export default function BookCard({ book, isRowLayout }) {
+  console.log(book)
   return (
     <div
       key={book?.id}
