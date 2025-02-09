@@ -14,6 +14,7 @@ export default function Navbar() {
     "/dashboard",
     "/dashboard/profile",
     "/dashboard/add-book",
+    "/dashboard/my-books",
   ].includes(pathname);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

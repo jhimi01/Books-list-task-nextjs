@@ -10,6 +10,7 @@ import {
   Menu,
   CircleUser,
   BookCheckIcon,
+  BookPlus,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import useAuthStore from "@/store/auth";
@@ -109,8 +110,21 @@ export default function SidebarDashboard() {
                         : "hover:bg-accent hover:text-accent-foreground"
                     }`}
                   >
-                    <BookCheckIcon className="mr-3" />
+                    <BookPlus className="mr-3" />
                     Add Books
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/my-books"
+                    className={`flex items-center p-2 text-base font-medium rounded-lg transition-colors ${
+                      pathname === "/dashboard/my-books"
+                        ? "bg-accent text-accent-foreground"
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    }`}
+                  >
+                    <BookCheckIcon className="mr-3" />
+                    My Books
                   </Link>
                 </li>
               </ul>

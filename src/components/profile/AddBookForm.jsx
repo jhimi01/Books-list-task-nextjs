@@ -1,6 +1,10 @@
 "use client";
+import { useCookie } from "@/hooks/useCookie";
 import { genreStore } from "@/store/genre";
-import React, { useEffect } from "react";
+import axios from "axios";
+import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AddBookForm() {
@@ -10,38 +14,77 @@ export default function AddBookForm() {
     reset,
     formState: { errors },
   } = useForm();
-
+  const router = useRouter();
   const genres = genreStore((state) => state.genres);
   const fetchGenres = genreStore((state) => state.fetchGenres);
+  const { getCookie } = useCookie({ key: "authToken", days: 7 });
+  const [uploading, setUploading] = useState(false);
+  const [imgUrl, setImgurl] = useState("");
+  const [isUploadingImage, setIsUploadingImage] = useState(false); // State for image upload status
+
   useEffect(() => {
     fetchGenres(); // Fetch genres on component mount
   }, [fetchGenres]);
-  console.log(genres);
+
+  const handleImageUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "pskbaxbg");
+    formData.append("cloud_name", "dudkmza2y");
+
+    try {
+      setIsUploadingImage(true);
+      setUploading(true);
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dudkmza2y/image/upload",
+        formData
+      );
+      setImgurl(response.data.secure_url);
+      return response.data.secure_url; // Return the uploaded image URL
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to upload image. Please try again.");
+      return null;
+    } finally {
+      setIsUploadingImage(false);
+      setUploading(false);
+    }
+  };
 
   const onSubmit = async (data) => {
+    console.log("Form data:", data); // Check if this logs the expected data
     try {
-      const response = await fetch("/api/books", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      // Upload the image to Cloudinary first
+      const imageUrl = await handleImageUpload(data.coverImage[0]);
+      setImgurl(imageUrl);
+      if (!imageUrl) return;
 
-      if (!response.ok) {
-        throw new Error("Failed to add book");
+      // Add the image URL to the form data
+      const token = getCookie();
+      const response = await axios.post(
+        "/api/books",
+        { ...data, coverImage: imageUrl },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        router.push("/dashboard/my-books");
       }
-
+      console.log(response);
       alert("Book added successfully!");
       reset();
     } catch (error) {
       console.error(error);
-      alert("An error occurred while adding the book.");
+      alert(error.response?.data?.error || "An error occurred.");
     }
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto border  shadow-lg">
+    <div className="p-4 max-w-md mx-auto border shadow-lg">
       <h2 className="text-xl font-semibold mb-4">Add a New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
@@ -52,7 +95,7 @@ export default function AddBookForm() {
             type="text"
             id="title"
             {...register("title", { required: "Title is required" })}
-            className="w-full p-2 border focus:outline-none  "
+            className="w-full p-2 border focus:outline-none"
           />
           {errors.title && (
             <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -66,28 +109,57 @@ export default function AddBookForm() {
             type="text"
             id="author"
             {...register("author", { required: "Author is required" })}
-            className="w-full p-2 border focus:outline-none  "
+            className="w-full p-2 border focus:outline-none"
           />
           {errors.author && (
             <p className="text-red-500 text-sm">{errors.author.message}</p>
           )}
         </div>
         <div className="mb-4">
-          <label className="block mb-1 font-medium" htmlFor="coverImage">
-            Cover Image URL
+          <label className="block mb-1 font-medium" htmlFor="author">
+            Book Cover
           </label>
-          <input
-            type="url"
-            id="coverImage"
-            {...register("coverImage", {
-              required: "Cover image URL is required",
-            })}
-            className="w-full p-2 border focus:outline-none  "
-          />
+          <label
+            className="block mb-1 py-5 font-medium border text-center cursor-pointer"
+            htmlFor="coverImage"
+          >
+            {isUploadingImage ? (
+              <div className="flex justify-center items-center">
+                <Loader className="animate-spin" />
+              </div>
+            ) : imgUrl ? (
+              <img
+                src={imgUrl}
+                alt="Uploaded cover"
+                className="max-h-32 mx-auto mb-2"
+              />
+            ) : (
+              <span>Click to select an image</span>
+            )}
+            <input
+              type="file"
+              id="coverImage"
+              {...register("coverImage", {
+                required: "Cover image is required",
+                validate: (fileList) =>
+                  fileList?.[0] || "Please select an image",
+              })}
+              className="hidden"
+              accept="image/*"
+              onChange={async (e) => {
+                if (e.target.files?.[0]) {
+                  const file = e.target.files[0];
+                  const uploadedUrl = await handleImageUpload(file); // Upload image
+                  if (uploadedUrl) setImgurl(uploadedUrl); // Update image URL
+                }
+              }}
+            />
+          </label>
           {errors.coverImage && (
             <p className="text-red-500 text-sm">{errors.coverImage.message}</p>
           )}
         </div>
+
         <div className="mb-4">
           <label className="block mb-1 font-medium" htmlFor="genreName">
             Genre
@@ -95,7 +167,7 @@ export default function AddBookForm() {
           <select
             id="genreName"
             {...register("genreName", { required: "Genre is required" })}
-            className="w-full p-2 border focus:outline-none  "
+            className="w-full p-2 border focus:outline-none"
           >
             <option value="">Select a genre</option>
             {genres.map((genre, index) => (
@@ -118,7 +190,7 @@ export default function AddBookForm() {
             {...register("publishedAt", {
               required: "Published date is required",
             })}
-            className="w-full p-2 border focus:outline-none  "
+            className="w-full p-2 border focus:outline-none"
           />
           {errors.publishedAt && (
             <p className="text-red-500 text-sm">{errors.publishedAt.message}</p>
@@ -126,9 +198,10 @@ export default function AddBookForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-primary-800 text-white p-2  hover:bg-primary-700"
+          className="w-full bg-primary-800 text-white p-2 hover:bg-primary-700"
+          disabled={uploading}
         >
-          Add Book
+          {uploading ? "Uploading..." : "Add Book"}
         </button>
       </form>
     </div>
