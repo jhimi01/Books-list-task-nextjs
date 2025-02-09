@@ -7,18 +7,17 @@ export async function GET(req) {
     const genreName = url.searchParams.get("genre");
     const filterType = url.searchParams.get("filter");
 
-    // Construct the `where` and `orderBy` conditions dynamically
     const where = {};
     const orderBy = [];
 
     if (genreName) {
-      where.genreName = genreName; // Filter by genre
+      where.genreName = genreName;
     }
 
     if (filterType === "earlier") {
-      orderBy.push({ publishedAt: "asc" }); // Sort by publishedAt (oldest first)
+      orderBy.push({ publishedAt: "asc" });
     } else if (filterType === "older") {
-      orderBy.push({ publishedAt: "desc" }); // Sort by publishedAt (newest first)
+      orderBy.push({ publishedAt: "desc" });
     }
 
     // Fetch books from Prisma based on the constructed query

@@ -9,9 +9,10 @@ export default function Navbar() {
   const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
   const shouldHideNavbar = [
-    "/book-list",
-    "/favorite-book-list",
+    "/dashboard/book-list",
+    "/dashboard/favorite-book-list",
     "/dashboard",
+    "/dashboard/profile",
   ].includes(pathname);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -81,33 +81,99 @@ export async function POST(req) {
   }
 }
 
-// Logout
-export async function DELETE(req) {
-    try {
-      const authHeader = req.headers.get("Authorization");
-      if (!authHeader) throw new Error("Authorization header missing");
-  
-      const token = authHeader.split(" ")[1];
-      if (!token) throw new Error("Token missing");
-  
-      if (!process.env.JWT_SECRET_KEY) {
-        throw new Error("JWT secret key is missing");
-      }
-  
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-      const userId = decoded?.id; // Ensure id exists in decoded token
-  
-      if (!userId) throw new Error("Invalid token payload");
-  
-      // Remove the user from the session
-      await prisma.loggedInUser.delete({ where: { userId } });
-  
-      return NextResponse.json({ message: "Logged out successfully" }, { status: 200 });
-    } catch (error) {
-      console.error("Logout error:", error);
+// Get loggedInUser data
+export async function GET(req) {
+  try {
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
       return NextResponse.json(
-        { message: "An error occurred during logout", error: error.message },
+        { error: "Authorization header missing" },
+        { status: 401 }
+      );
+    }
+
+    const token = authHeader.split(" ")[1];
+    if (!token) {
+      return NextResponse.json({ error: "Token missing" }, { status: 401 });
+    }
+
+    if (!process.env.JWT_SECRET_KEY) {
+      return NextResponse.json(
+        { error: "JWT secret key is missing" },
         { status: 500 }
       );
     }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    } catch (error) {
+      console.error("JWT verification error:", error.message);
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 401 }
+      );
+    }
+
+    const userId = decoded?.id;
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Invalid token payload: ID missing" },
+        { status: 400 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { message: "User data retrieved successfully", userData: user },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Login error:", error);
+    return NextResponse.json(
+      { error: "An error occurred while processing your request." },
+      { status: 500 }
+    );
   }
+}
+
+// Logout
+export async function DELETE(req) {
+  try {
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) throw new Error("Authorization header missing");
+
+    const token = authHeader.split(" ")[1];
+    if (!token) throw new Error("Token missing");
+
+    if (!process.env.JWT_SECRET_KEY) {
+      throw new Error("JWT secret key is missing");
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const userId = decoded?.id; // Ensure id exists in decoded token
+
+    if (!userId) throw new Error("Invalid token payload");
+
+    // Remove the user from the session
+    await prisma.loggedInUser.delete({ where: { userId } });
+
+    return NextResponse.json(
+      { message: "Logged out successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+    return NextResponse.json(
+      { message: "An error occurred during logout", error: error.message },
+      { status: 500 }
+    );
+  }
+}
