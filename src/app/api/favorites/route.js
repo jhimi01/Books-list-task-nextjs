@@ -33,7 +33,7 @@ export async function POST(req) {
     if (existingFavorite) {
       return new Response(
         JSON.stringify({ error: "Book is already in favorites" }),
-        // { status: 401 }
+        { status: 401 }
       );
     }
 

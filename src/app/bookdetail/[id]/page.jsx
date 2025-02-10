@@ -32,7 +32,7 @@ export default function BookDetail({ params }) {
             <Image
               height={500}
               width={500}
-              src={book.coverImage}
+              src={book?.coverImage}
               alt="book cover image"
               className="w-64 h-96 object-cover"
             />

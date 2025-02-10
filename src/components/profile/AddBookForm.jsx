@@ -22,11 +22,14 @@ export default function AddBookForm() {
   const [imgUrl, setImgurl] = useState("");
   const [isUploadingImage, setIsUploadingImage] = useState(false); // State for image upload status
 
+  console.log(imgUrl);
+
   useEffect(() => {
     fetchGenres(); // Fetch genres on component mount
   }, [fetchGenres]);
 
   const handleImageUpload = async (file) => {
+    console.log(file);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "pskbaxbg");
@@ -39,6 +42,8 @@ export default function AddBookForm() {
         "https://api.cloudinary.com/v1_1/dudkmza2y/image/upload",
         formData
       );
+
+      console.log(response);
       setImgurl(response.data.secure_url);
       return response.data.secure_url; // Return the uploaded image URL
     } catch (error) {
@@ -52,18 +57,19 @@ export default function AddBookForm() {
   };
 
   const onSubmit = async (data) => {
-    console.log("Form data:", data); // Check if this logs the expected data
     try {
-      // Upload the image to Cloudinary first
-      const imageUrl = await handleImageUpload(data.coverImage[0]);
-      setImgurl(imageUrl);
-      if (!imageUrl) return;
+      let imageUrl = imgUrl; // Use the already uploaded image URL
 
-      // Add the image URL to the form data
-      const token = getCookie();
+      // Upload the image only if it hasn't been uploaded yet
+      if (!imgUrl && data.coverImage[0]) {
+        imageUrl = await handleImageUpload(data.coverImage[0]);
+        if (!imageUrl) return; // Exit if upload fails
+      }
+
+      const token = getCookie(); // Get auth token
       const response = await axios.post(
         "/api/books",
-        { ...data, coverImage: imageUrl },
+        { ...data, coverImage: imageUrl }, // Use the uploaded image URL
         {
           headers: {
             "Content-Type": "application/json",
@@ -71,12 +77,13 @@ export default function AddBookForm() {
           },
         }
       );
+
       if (response.status === 201) {
-        router.push("/dashboard/my-books");
+        alert("Book added successfully!");
+        reset(); // Reset form fields
+        setImgurl(""); // Clear uploaded image URL
+        router.push("/dashboard/my-books"); // Redirect
       }
-      console.log(response);
-      alert("Book added successfully!");
-      reset();
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.error || "An error occurred.");
@@ -141,20 +148,21 @@ export default function AddBookForm() {
               id="coverImage"
               {...register("coverImage", {
                 required: "Cover image is required",
-                validate: (fileList) =>
-                  fileList?.[0] || "Please select an image",
               })}
               className="hidden"
               accept="image/*"
               onChange={async (e) => {
                 if (e.target.files?.[0]) {
                   const file = e.target.files[0];
-                  const uploadedUrl = await handleImageUpload(file); // Upload image
+                  const uploadedUrl = await handleImageUpload(file);
                   if (uploadedUrl) setImgurl(uploadedUrl); // Update image URL
+                } else {
+                  alert("Please select a valid image file.");
                 }
               }}
             />
           </label>
+
           {errors.coverImage && (
             <p className="text-red-500 text-sm">{errors.coverImage.message}</p>
           )}
@@ -199,9 +207,9 @@ export default function AddBookForm() {
         <button
           type="submit"
           className="w-full bg-primary-800 text-white p-2 hover:bg-primary-700"
-          disabled={uploading}
+          disabled={uploading || isUploadingImage} // Disable button if image is uploading
         >
-          {uploading ? "Uploading..." : "Add Book"}
+          {uploading || isUploadingImage ? "Uploading..." : "Add Book"}
         </button>
       </form>
     </div>
