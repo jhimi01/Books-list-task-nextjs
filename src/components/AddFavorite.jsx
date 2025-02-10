@@ -24,8 +24,10 @@ export default function AddFavorite({ bookId }) {
         }
       );
 
+      console.log(response)
+
       setIsFavorite(true); // Mark the book as favorite
-      toast.success("Book added to favorites!");
+      toast.success( response.data.message || "Book added to favorites!");
     } catch (error) {
       console.error("Error:", error.response?.data?.error || error.message);
       toast.warn(error.response?.data?.error || "Failed to add book to favorites.");

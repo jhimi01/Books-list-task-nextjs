@@ -33,7 +33,7 @@ export async function POST(req) {
     if (existingFavorite) {
       return new Response(
         JSON.stringify({ error: "Book is already in favorites" }),
-        { status: 400 }
+        // { status: 401 }
       );
     }
 
@@ -74,7 +74,6 @@ export async function GET(req) {
       { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }
-  
 
   try {
     // Fetch the user's favorite books
@@ -96,29 +95,3 @@ export async function GET(req) {
     );
   }
 }
-
-
-// export async function GET(req, res) {
-//   try {
-//     const token = req.headers.authorization?.split(" ")[1];
-
-//     if (!token) {
-//       return res.status(401).json({ error: "Authorization token missing" });
-//     }
-
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-//     const userId = decoded?.id; // Ensure `id` exists in the token payload
-
-//     if (!userId) {
-//       return res.status(403).json({ error: "Invalid token" });
-//     }
-
-//     // Proceed with fetching favorites using userId
-//     const favorites = await getFavoritesByUserId(userId);
-//     // return res.status(200).json(favorites);
-//     return new Response(JSON.stringify(favorites), { status: 200 });
-//   } catch (error) {
-//     console.error("Error verifying token:", error);
-//     return res.status(500).json({ error: error.message });
-//   }
-// }

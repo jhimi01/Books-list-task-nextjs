@@ -9,7 +9,10 @@ export async function POST(req) {
 
     // Validate required fields
     if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Email and password are required" },
+        { status: 400 }
+      );
     }
 
     // Check if the user already exists
@@ -18,7 +21,10 @@ export async function POST(req) {
     });
 
     if (existingUser) {
-      return NextResponse.json({ error: "Email is already in use" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Email is already in use" },
+        { status: 400 }
+      );
     }
 
     // Hash the password
@@ -34,9 +40,15 @@ export async function POST(req) {
     });
 
     // Return a success response
-    return NextResponse.json({ message: "User created successfully", user }, { status: 201 });
+    return NextResponse.json(
+      { message: "User created successfully", user },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error creating user:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
