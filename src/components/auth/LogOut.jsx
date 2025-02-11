@@ -39,7 +39,7 @@ export default function LogOut() {
     <button
       type="submit"
       onClick={handleLogout}
-      className="flex items-center gap-4"
+      className="flex items-center gap-2"
       disabled={isLoggingOut} // Disable button while logging out
     >
       <LogOutIcon />
