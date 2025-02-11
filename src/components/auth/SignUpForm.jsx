@@ -24,20 +24,19 @@ export default function SignUpForm() {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    setServerError(""); // Clear any previous errors
+    setServerError("");
     try {
       const response = await axios.post("/api/auth/signup", data);
       console.log("Form submitted successfully:", response.data);
-      if(response.status === 201){
+      if (response.status === 201) {
         router.push("/login");
-      }else{
-        toast.error(response.error)
-        console.log(response)
+      } else {
+        toast.error(response.error);
+        console.log(response);
       }
-      // Handle success (e.g., navigate to another page or show a success message)
     } catch (error) {
       console.error("Error submitting the form:", error);
-      toast.error(error.response.data.error)
+      toast.error(error.response.data.error);
       setServerError(
         error.response?.data?.message || "An unexpected error occurred"
       );
@@ -54,13 +53,13 @@ export default function SignUpForm() {
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">
               Create an account
             </h1>
-            <form
-              className="space-y-4"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Your name
                 </label>
                 <input
@@ -77,7 +76,10 @@ export default function SignUpForm() {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Your email
                 </label>
                 <input
@@ -100,7 +102,10 @@ export default function SignUpForm() {
 
               {/* Password */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Password
                 </label>
                 <div className="relative">
@@ -126,13 +131,18 @@ export default function SignUpForm() {
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 text-sm">{errors.password.message}</p>
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
               {/* Confirm Password */}
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900 dark:text-white">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-900 dark:text-white"
+                >
                   Confirm Password
                 </label>
                 <input
@@ -147,7 +157,9 @@ export default function SignUpForm() {
                   placeholder="••••••••"
                 />
                 {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+                  <p className="text-red-500 text-sm">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
               </div>
 
@@ -166,7 +178,7 @@ export default function SignUpForm() {
               </button>
 
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Already have an account?{" "}
+                Already have an account?
                 <Link href="/login" className="text-blue-600 hover:underline">
                   Login here
                 </Link>

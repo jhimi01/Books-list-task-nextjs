@@ -4,7 +4,7 @@ import React from "react";
 import AddFavorite from "../AddFavorite";
 
 export default function BookCard({ book, isRowLayout }) {
-  console.log(book)
+  console.log(book);
   return (
     <div
       key={book?.id}

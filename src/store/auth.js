@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
 import { create } from "zustand";
 import axios from "axios";
 
 const useAuthStore = create((set) => ({
   user: null,
-  isAuthenticated: false, // To track if the user is logged in
-  error: null, // To store errors
+  isAuthenticated: false,
+  error: null,
 
   // Fetch the logged-in user
   fetchLoggedInUser: async (token) => {

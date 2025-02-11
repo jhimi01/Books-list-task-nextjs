@@ -1,15 +1,11 @@
 import BooksSection from "@/components/homepage/BooksSection";
 import Searchbar from "@/components/homepage/Searchbar";
 
-
-export default  function Home() {
-
-
+export default function Home() {
   return (
-   <main>
-   <Searchbar />
-
-   <BooksSection />
-   </main>
+    <main>
+      <Searchbar />
+      <BooksSection />
+    </main>
   );
 }

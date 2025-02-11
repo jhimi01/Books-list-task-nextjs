@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
-import books from "../.././../../public/booklist.json";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { Heart, Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 import { bookStore } from "@/store/books";
 import AddFavorite from "@/components/AddFavorite";
 

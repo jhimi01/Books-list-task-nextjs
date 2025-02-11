@@ -7,7 +7,6 @@ import { bookStore } from "@/store/books";
 import FilterButton from "./FilterButton";
 
 export default function BooksSection() {
-  // State to manage the layout (grid or row)
   const [isRowLayout, setIsRowLayout] = useState(false);
 
   // Accessing store values
@@ -17,7 +16,7 @@ export default function BooksSection() {
 
   // Fetch books when the component mounts
   useEffect(() => {
-    fetchbooks(); // Fetch all books on initial load
+    fetchbooks();
   }, [fetchbooks]);
 
   // Function to toggle the layout

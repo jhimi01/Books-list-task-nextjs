@@ -55,12 +55,15 @@ export async function POST(req) {
     if (!userId) throw new Error("Invalid token: User ID is missing");
 
     const body = await req.json();
-    console.log("Request body---------:", body); // Log the request body
-    if (!body || Object.keys(body).length === 0) throw new Error("Request body is empty");
+    console.log("Request body---------:", body);
+    if (!body || Object.keys(body).length === 0)
+      throw new Error("Request body is empty");
 
     const { title, author, coverImage, genreName, publishedAt } = body;
     if (!title || !author || !coverImage || !publishedAt) {
-      throw new Error("Missing required fields: title, author, coverImage, or publishedAt");
+      throw new Error(
+        "Missing required fields: title, author, coverImage, or publishedAt"
+      );
     }
 
     const genre = await prisma.genre.findUnique({ where: { name: genreName } });
@@ -77,7 +80,7 @@ export async function POST(req) {
       },
     });
 
-    console.log('new book:', newBook);
+    console.log("new book:", newBook);
 
     return new Response(JSON.stringify(newBook), { status: 201 });
   } catch (error) {
@@ -88,5 +91,3 @@ export async function POST(req) {
     );
   }
 }
-
-

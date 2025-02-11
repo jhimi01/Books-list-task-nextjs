@@ -77,7 +77,7 @@ export default function BookTable() {
                 {new Date(book.createdAt).toLocaleDateString()}
               </TableCell>
               <TableCell className="flex items-center justify-center text-primary-800 h-24">
-              <AddFavorite bookId={book.id} />
+                <AddFavorite bookId={book.id} />
               </TableCell>
             </TableRow>
           ))}

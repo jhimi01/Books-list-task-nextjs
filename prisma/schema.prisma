@@ -36,7 +36,7 @@ model LoggedInUser {
 model Genre {
   id        String   @id @default(cuid())
   name      String   @unique
-  books     Book[] // One-to-many relation: a genre can have many books
+  books     Book[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -48,9 +48,9 @@ model Book {
   coverImage  String
   publishedAt DateTime
   genre       Genre?         @relation(fields: [genreName], references: [name])
-  genreName   String? // Foreign key for Genre
+  genreName   String?
   user        User           @relation(fields: [userId], references: [id])
-  userId      String // Foreign key for User
+  userId      String
   favorites   FavoriteBook[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
@@ -59,8 +59,8 @@ model Book {
 model FavoriteBook {
   id        String   @id @default(cuid())
   user      User     @relation(fields: [userId], references: [id])
-  userId    String // Foreign key for User
+  userId    String
   book      Book     @relation(fields: [bookId], references: [id])
-  bookId    String // Foreign key for Book
+  bookId    String
   createdAt DateTime @default(now())
 }

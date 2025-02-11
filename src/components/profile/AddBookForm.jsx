@@ -21,12 +21,12 @@ export default function AddBookForm() {
   const { getCookie } = useCookie({ key: "authToken", days: 7 });
   const [uploading, setUploading] = useState(false);
   const [imgUrl, setImgurl] = useState("");
-  const [isUploadingImage, setIsUploadingImage] = useState(false); // State for image upload status
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   console.log(imgUrl);
 
   useEffect(() => {
-    fetchGenres(); // Fetch genres on component mount
+    fetchGenres();
   }, [fetchGenres]);
 
   const handleImageUpload = async (file) => {
@@ -46,7 +46,7 @@ export default function AddBookForm() {
 
       console.log(response);
       setImgurl(response.data.secure_url);
-      return response.data.secure_url; // Return the uploaded image URL
+      return response.data.secure_url;
     } catch (error) {
       console.error("Image upload failed:", error);
       alert("Failed to upload image. Please try again.");
@@ -59,18 +59,16 @@ export default function AddBookForm() {
 
   const onSubmit = async (data) => {
     try {
-      let imageUrl = imgUrl; // Use the already uploaded image URL
-
-      // Upload the image only if it hasn't been uploaded yet
+      let imageUrl = imgUrl;
       if (!imgUrl && data.coverImage[0]) {
         imageUrl = await handleImageUpload(data.coverImage[0]);
-        if (!imageUrl) return; // Exit if upload fails
+        if (!imageUrl) return;
       }
 
-      const token = getCookie(); // Get auth token
+      const token = getCookie();
       const response = await axios.post(
         "/api/books",
-        { ...data, coverImage: imageUrl }, // Use the uploaded image URL
+        { ...data, coverImage: imageUrl },
         {
           headers: {
             "Content-Type": "application/json",
@@ -80,11 +78,10 @@ export default function AddBookForm() {
       );
 
       if (response.status === 201) {
-        toast.success("Book added successfully!")
-        // alert();
-        reset(); // Reset form fields
-        setImgurl(""); // Clear uploaded image URL
-        router.push("/dashboard/my-books"); // Redirect
+        toast.success("Book added successfully!");
+        reset();
+        setImgurl("");
+        router.push("/dashboard/my-books");
       }
     } catch (error) {
       console.error(error);
@@ -209,7 +206,7 @@ export default function AddBookForm() {
         <button
           type="submit"
           className="w-full bg-primary-800 text-white p-2 hover:bg-primary-700"
-          disabled={uploading || isUploadingImage} // Disable button if image is uploading
+          disabled={uploading || isUploadingImage}
         >
           {uploading || isUploadingImage ? "Uploading..." : "Add Book"}
         </button>

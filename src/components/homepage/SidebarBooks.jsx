@@ -6,25 +6,18 @@ import { useEffect, useState } from "react";
 export default function SidebarBooks() {
   const genres = genreStore((state) => state.genres);
 
-  console.log('genres', genres)
+  console.log("genres", genres);
   const fetchGenres = genreStore((state) => state.fetchGenres);
   const fetchbooks = bookStore((state) => state.fetchbooks);
-
-  // State to track the selected genre
   const [selectedGenre, setSelectedGenre] = useState(null);
 
   useEffect(() => {
-    fetchGenres(); // Fetch genres on component mount
+    fetchGenres();
   }, [fetchGenres]);
 
-  // const handleGenreClick = (genreName) => {
-  //   setSelectedGenre(genreName); // Update the selected genre
-  //   fetchbooks(genreName); // Fetch books for the selected genre
-  // };
-
   const handleGenreSelect = async (genre) => {
-    setSelectedGenre(genre); // Update the selected genre in the store
-    await fetchbooks(genre); // Fetch books based on selected genre
+    setSelectedGenre(genre);
+    await fetchbooks(genre);
   };
 
   return (

@@ -53,18 +53,9 @@ export default function SidebarDashboard() {
         } transition-transform lg:static lg:h-screen lg:flex`}
       >
         {/* Sidebar Header */}
-        {/* <div className="text-center py-2 border-b bg-primary-800">
-          <h1 className="text-2xl font-semibold text-white">Admin Panel</h1>
-        </div> */}
-
-        {/* Sidebar Header */}
         <div className="text-center py-5 border-b bg-primary-800">
-          <h1 className="text-2xl font-semibold text-white">
-            {user?.name}
-          </h1>
-          <h3 className="text-lg font-semibold text-white">
-            {user?.email}
-          </h3>
+          <h1 className="text-2xl font-semibold text-white">{user?.name}</h1>
+          <h3 className="text-lg font-semibold text-white">{user?.email}</h3>
         </div>
 
         <Tabs defaultValue="guest" className="w-full h-full mt-5 rounded-none">

@@ -32,15 +32,15 @@ export default function FavoriteTable() {
           Authorization: `Bearer ${authToken}`,
         },
       });
-  
+
       if (!response.ok) {
         const error = await response.json();
         toast.error(error.error || "Failed to remove from favorites.");
         return;
       }
-  
+
       toast.success("Removed from favorites!");
-      fetchFavorites(authToken); // Refresh the favorites list
+      fetchFavorites(authToken);
     } catch (err) {
       console.error("Error:", err);
       toast.error("An error occurred. Please try again.");
@@ -54,7 +54,6 @@ export default function FavoriteTable() {
       fetchFavorites(authToken);
     }
   }, [authToken, fetchFavorites]);
-  
 
   if (loading) return <p>Loading favorites...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -97,7 +96,11 @@ export default function FavoriteTable() {
                     onClick={() => handleRemoveFavorite(favorite?.id)}
                     disabled={loadingId === favorite?.id}
                   >
-                    {loadingId === favorite?.id ? "Removing..." : <HeartOff size={25} />}
+                    {loadingId === favorite?.id ? (
+                      "Removing..."
+                    ) : (
+                      <HeartOff size={25} />
+                    )}
                   </button>
                 </TableCell>
               </TableRow>

@@ -3,12 +3,12 @@ import { useCookie } from "@/hooks/useCookie";
 import axios from "axios";
 import { LogOutIcon } from "lucide-react";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // For navigation
+import { useRouter } from "next/navigation";
 
 export default function LogOut() {
   const { getCookie, removeCookie } = useCookie({ key: "authToken", days: 7 });
-  const [isLoggingOut, setIsLoggingOut] = useState(false); // State for immediate feedback
-  const router = useRouter(); // Next.js router
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const router = useRouter();
   const authToken = getCookie();
 
   const handleLogout = async () => {
@@ -17,21 +17,21 @@ export default function LogOut() {
         console.error("No auth token found");
         return;
       }
-      setIsLoggingOut(true); // Update UI to reflect logout process
+      setIsLoggingOut(true);
       const response = await axios.delete("/api/auth/login", {
         headers: { Authorization: `Bearer ${authToken}` },
       });
       if (response.status === 200) {
-        removeCookie(); // Remove the token
+        removeCookie();
         console.log("Logged out successfully");
-        router.replace("/login"); // Redirect to login page
+        router.replace("/login");
       } else {
         console.error("Failed to log out:", response.statusText);
       }
     } catch (err) {
       console.error("Logout error:", err.message);
     } finally {
-      setIsLoggingOut(false); // Reset logout state
+      setIsLoggingOut(false);
     }
   };
 
@@ -40,7 +40,7 @@ export default function LogOut() {
       type="submit"
       onClick={handleLogout}
       className="flex items-center gap-2"
-      disabled={isLoggingOut} // Disable button while logging out
+      disabled={isLoggingOut}
     >
       <LogOutIcon />
       {isLoggingOut ? "Logging out..." : "Logout"}

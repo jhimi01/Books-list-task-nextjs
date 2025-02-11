@@ -58,8 +58,6 @@ export default function MyBooksTable() {
           Authorization: `Bearer ${authToken}`,
         },
       });
-
-      // Update UI after removal
       setMyBooks((prev) => prev.filter((book) => book.id !== bookId));
     } catch (err) {
       console.error("Error removing book:", err);

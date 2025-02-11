@@ -2,23 +2,25 @@
 import React from "react";
 import { bookStore } from "@/store/books";
 import { ListFilter } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 
 export default function FilterButton() {
-    const fetchbooks = bookStore((state) => state.fetchbooks);
-  const selectedGenre = bookStore((state) => state.selectedGenre); 
+  const fetchbooks = bookStore((state) => state.fetchbooks);
+  const selectedGenre = bookStore((state) => state.selectedGenre);
 
-  // Function to handle filtering
   const handleFilter = async (filterType) => {
     try {
-      // Pass both genre and filterType to the fetchbooks function
       await fetchbooks(selectedGenre, filterType);
     } catch (error) {
       console.error("Error applying filters:", error);
     }
   };
-
 
   return (
     <DropdownMenu>
