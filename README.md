@@ -16,9 +16,11 @@ This is a modern, responsive web application built with Next.js. The project fea
 
 ## Technologies Used
 
-- **Frontend**: Next.js (App Router), Tailwind CSS
+- **Frontend**: Next.js (App Router), Tailwind CSS, Shadcn UI
+- **State management**: Zustand for state management
 - **Backend**: API endpoints for authentication and data handling
 - **Authentication**: Custom middleware with cookies for session management
+- **Database**: PostgreSQL for data storage
 - **Icons**: `lucide-react` for scalable and customizable icons
 
 ---
@@ -29,3 +31,6 @@ This is a modern, responsive web application built with Next.js. The project fea
    ```bash
    git clone https://github.com/your-username/your-repo-name.git
    cd your-repo-name
+
+2. Here is the project video link:
+   ## https://drive.google.com/file/d/118S9OIIywAmuAvuLBbMC_kYtRWZR0Ocg/view?usp=sharing
