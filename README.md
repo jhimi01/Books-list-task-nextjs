@@ -29,8 +29,8 @@ This is a modern, responsive web application built with Next.js. The project fea
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/jhimi01/Books-list-task-nextjs.git
+   cd repo-name
 
 2. Here is the project video link:
    ## https://drive.google.com/file/d/118S9OIIywAmuAvuLBbMC_kYtRWZR0Ocg/view?usp=sharing
