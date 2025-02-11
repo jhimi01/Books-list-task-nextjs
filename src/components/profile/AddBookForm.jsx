@@ -6,6 +6,7 @@ import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function AddBookForm() {
   const {
@@ -79,7 +80,8 @@ export default function AddBookForm() {
       );
 
       if (response.status === 201) {
-        alert("Book added successfully!");
+        toast.success("Book added successfully!")
+        // alert();
         reset(); // Reset form fields
         setImgurl(""); // Clear uploaded image URL
         router.push("/dashboard/my-books"); // Redirect

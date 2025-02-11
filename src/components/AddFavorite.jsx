@@ -24,20 +24,25 @@ export default function AddFavorite({ bookId }) {
         }
       );
 
-      console.log(response)
+      console.log(response);
 
       setIsFavorite(true); // Mark the book as favorite
-      toast.success( response.data.message || "Book added to favorites!");
+      toast.success(response.data.message || "Book added to favorites!");
     } catch (error) {
       console.error("Error:", error.response?.data?.error || error.message);
-      toast.warn(error.response?.data?.error || "Failed to add book to favorites.");
+      toast.warn(
+        error.response?.data?.error ||
+          "Failed to add book to favorites. please login & try again"
+      );
     }
   };
 
   return (
     <div onClick={handleAddFavorite} disabled={isFavorite}>
       <Heart
-        className={`cursor-pointer ${isFavorite ? "text-red-500" : "text-gray-500"}`}
+        className={`cursor-pointer ${
+          isFavorite ? "text-red-500" : "text-gray-500"
+        }`}
         size={24}
       />
     </div>

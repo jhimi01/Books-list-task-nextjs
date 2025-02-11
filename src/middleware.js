@@ -2,24 +2,21 @@ import { NextResponse } from "next/server";
 
 export async function middleware(req) {
   const token = req.cookies.get("authToken")?.value;
+  const { pathname } = req.nextUrl;
 
-  // const { pathname } = req.nextUrl;
+  // Redirect logged-in users away from login or signup pages
+  if (token && (pathname === "/login" || pathname === "/signup")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
-  // if (pathname.startsWith("/profile")) {
-    // If no token or no user data, redirect to login
-    // if (!token) {
-    //   return NextResponse.redirect(new URL("/login", req.url));
-    // }
-  // }
+  // Protect dashboard routes for non-authenticated users
+  if (!token && pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
-  // if (pathname.startsWith("/login")) {
-    // If both token and user exist, redirect to profile
-    if (token) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-  // }
-
-  return NextResponse.next(); // Continue if no redirection is needed
+  return NextResponse.next();
 }
 
-export const config = { matcher: ["/profile", "/login"] };
+export const config = {
+  matcher: ["/dashboard/:path*", "/login", "/signup"],
+};

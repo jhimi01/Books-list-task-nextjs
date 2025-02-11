@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogOut from "../auth/LogOut";
 import { useCookie } from "@/hooks/useCookie";
+import { User } from "lucide-react";
 
 export default function Navbar() {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -50,9 +51,9 @@ export default function Navbar() {
               <div className="flex items-center gap-4">
                 <Link
                   href="/dashboard"
-                  className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center "
+                  className="text-white rounded-full bg-primary-800 hover:bg-primary-700 font-medium text-sm p-1 text-center "
                 >
-                  Dashboard
+                  <User className="w-7 h-7" />
                 </Link>
                 <LogOut />
               </div>
