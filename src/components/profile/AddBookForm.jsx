@@ -90,7 +90,7 @@ export default function AddBookForm() {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto border shadow-lg">
+    <div className="p-4 max-w-md mx-auto border shadow-lg bg-white">
       <h2 className="text-xl font-semibold mb-4">Add a New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">

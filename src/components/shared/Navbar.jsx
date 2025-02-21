@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogOut from "../auth/LogOut";
 import { useCookie } from "@/hooks/useCookie";
-import { User } from "lucide-react";
+import { LibraryBig, User } from "lucide-react";
 
 export default function Navbar() {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -29,6 +29,13 @@ export default function Navbar() {
   if (!isHydrated) {
     return null;
   }
+
+  // Helper function to check if a link is active
+  const isActive = (link) =>
+    pathname === link
+      ? "text-primary-800 md:text-primary-800 font-bold"
+      : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-800";
+
   return (
     <nav
       className={`${
@@ -39,8 +46,9 @@ export default function Navbar() {
     >
       <div className="wrapper flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center space-x-3">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            BookList
+          <span className="flex items-center text-primary-800 md:ml-0 ml-3">
+            <LibraryBig />{" "}
+            <span className="text-xl hidden md:block">BookLsit</span>
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0">
@@ -51,7 +59,7 @@ export default function Navbar() {
               <div className="flex items-center gap-4">
                 <Link
                   href="/dashboard"
-                  className="text-white rounded-full bg-primary-800 hover:bg-primary-700 font-medium text-sm p-1 text-center "
+                  className="text-white rounded-full bg-primary-800 hover:bg-primary-700 font-medium text-sm p-1 text-center"
                 >
                   <User className="w-7 h-7" />
                 </Link>
@@ -60,7 +68,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center "
+                className="text-white bg-primary-800 hover:bg-primary-700 font-medium text-sm px-4 py-2 text-center"
               >
                 Login
               </Link>
@@ -102,7 +110,9 @@ export default function Navbar() {
             <li>
               <Link
                 href="/"
-                className="block py-2 px-3 rounded-sm md:bg-transparent text-primary-800 md:p-0"
+                className={`block py-2 px-3 rounded-sm md:bg-transparent md:p-0 ${isActive(
+                  "/"
+                )}`}
                 aria-current="page"
               >
                 Home
@@ -111,15 +121,19 @@ export default function Navbar() {
             <li>
               <Link
                 href="/about"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-800 md:p-0 "
+                className={`block py-2 px-3 rounded-sm md:p-0 ${isActive(
+                  "/about"
+                )}`}
               >
                 About
               </Link>
             </li>
             <li>
               <Link
-                href="/services"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-800 md:p-0 "
+                href="/service"
+                className={`block py-2 px-3 rounded-sm md:p-0 ${isActive(
+                  "/service"
+                )}`}
               >
                 Services
               </Link>
@@ -127,7 +141,9 @@ export default function Navbar() {
             <li>
               <Link
                 href="/contact"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-800 md:p-0 "
+                className={`block py-2 px-3 rounded-sm md:p-0 ${isActive(
+                  "/contact"
+                )}`}
               >
                 Contact
               </Link>

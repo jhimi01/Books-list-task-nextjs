@@ -2,13 +2,15 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { Star } from "lucide-react";
+import { MoveRight, Star } from "lucide-react";
 import { bookStore } from "@/store/books";
 import AddFavorite from "@/components/AddFavorite";
 
 export default function BookDetail({ params }) {
   // const books = bookStore((state) => state.books);
-  const { id } = useParams(); // Get the book ID from the URL
+  const { id } = React.use(params); // Get the book ID from the URL
+
+  console.log(id);
   const fetchBookById = bookStore((state) => state.fetchBookById);
   const book = bookStore((state) => state.book);
 
@@ -66,9 +68,14 @@ export default function BookDetail({ params }) {
               {book.description}
             </p>
 
-            <button className="hover:bg-primary-700  flex item-center px-4 py-2 bg-primary-800 duration-300 gap-2 text-white font-semibold mt-4">
-              Add to favorite <AddFavorite bookId={book?.id} />
-            </button>
+            <div className="flex items-center gap-3">
+              <span className="bg-primary-800 flex items-center gap-3 px-3 py-1 text-white">
+                Add to favorite <MoveRight />
+              </span>
+              <button>
+                <AddFavorite bookId={book?.id} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ export default function BookTable() {
             <TableHead className="text-right text-white">Favorite</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="bg-white">
           {books?.map((book) => (
             <TableRow key={book.id} className="hover:bg-gray-300">
               <TableCell className="font-medium capitalize">

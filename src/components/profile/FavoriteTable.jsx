@@ -15,12 +15,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { HeartOff } from "lucide-react";
 import { useCookie } from "@/hooks/useCookie";
+import Link from "next/link";
 
 export default function FavoriteTable() {
   const { favorites, loading, error, fetchFavorites } = useFavoritesStore();
   const [loadingId, setLoadingId] = useState(null);
   const { getCookie } = useCookie({ key: "authToken", days: 7 });
   const authToken = getCookie();
+  console.log('object', favorites)
 
   const handleRemoveFavorite = async (id) => {
     setLoadingId(id);
@@ -64,31 +66,31 @@ export default function FavoriteTable() {
       {favorites.length > 0 ? (
         <Table className="w-full">
           <TableCaption>A list of your favorite books</TableCaption>
-          <TableHeader>
+          <TableHeader className="bg-primary-800">
             <TableRow>
-              <TableHead></TableHead>
-              <TableHead>Title</TableHead>
-              <TableHead>Author</TableHead>
-              <TableHead>Date Added</TableHead>
-              <TableHead>Remove</TableHead>
+              <TableHead className="text-white"></TableHead>
+              <TableHead className="text-white">Title</TableHead>
+              <TableHead className="text-white">Author</TableHead>
+              <TableHead className="text-white">Date Added</TableHead>
+              <TableHead className="text-white">Remove</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {favorites.map((favorite) => (
-              <TableRow key={favorite.id}>
+          <TableBody className="bg-white">
+            {favorites?.map((favorite) => (
+              <TableRow key={favorite?.id} className="hover:bg-gray-300">
                 <TableCell>
-                  <Image
-                    alt="cover"
-                    src={favorite.book.coverImage || "/placeholder.png"}
-                    width={500}
-                    height={500}
-                    className="w-14 h-14"
-                  />
+                    <Image
+                      alt="cover"
+                      src={favorite.book.coverImage || "/placeholder.png"}
+                      width={500}
+                      height={500}
+                      className="w-14 h-14"
+                    />
                 </TableCell>
-                <TableCell>{favorite.book.title}</TableCell>
-                <TableCell>{favorite.book.author}</TableCell>
+                <TableCell>{favorite?.book?.title}</TableCell>
+                <TableCell>{favorite?.book?.author}</TableCell>
                 <TableCell>
-                  {new Date(favorite.createdAt).toLocaleDateString()}
+                  {new Date(favorite?.createdAt).toLocaleDateString()}
                 </TableCell>
                 <TableCell>
                   <button

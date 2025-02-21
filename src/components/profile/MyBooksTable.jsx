@@ -13,6 +13,7 @@ import {
 } from "../ui/table";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 
 export default function MyBooksTable() {
   const { getCookie } = useCookie({ key: "authToken", days: 7 });
@@ -75,31 +76,40 @@ export default function MyBooksTable() {
         {!loading && !error && myBooks.length > 0 ? (
           <Table className="w-full">
             <TableCaption>A list of your uploaded books</TableCaption>
-            <TableHeader>
+            <TableHeader className="bg-primary-800">
               <TableRow>
-                <TableHead></TableHead>
-                <TableHead>Title</TableHead>
-                <TableHead>Author</TableHead>
-                <TableHead>Published</TableHead>
-                <TableHead>Remove</TableHead>
+                <TableHead className="text-white"></TableHead>
+                <TableHead className="text-white">Title</TableHead>
+                <TableHead className="text-white">Author</TableHead>
+                <TableHead className="text-white">Published</TableHead>
+                <TableHead className="text-white">Created</TableHead>
+                <TableHead className="text-white">Remove</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="bg-white">
               {myBooks.map((book) => (
-                <TableRow key={book.id}>
+                <TableRow key={book.id} className="hover:bg-gray-200">
                   <TableCell>
-                    <Image
-                      alt="cover"
-                      src={book.coverImage || "/placeholder.png"}
-                      width={500}
-                      height={500}
-                      className="w-14 h-14"
-                    />
+                    <Link href={`/bookdetail/${book.id}`}>
+                      {" "}
+                      <Image
+                        alt="cover"
+                        src={book.coverImage || "/placeholder.png"}
+                        width={500}
+                        height={500}
+                        className="w-14 h-14"
+                      />
+                    </Link>
                   </TableCell>
                   <TableCell>{book.title}</TableCell>
                   <TableCell>{book.author}</TableCell>
                   <TableCell>
-                    {new Date(book.publishedAt).toLocaleDateString()}
+                    <span className="bg-gray-200 rounded-full p-1">
+                      {new Date(book.publishedAt).toLocaleDateString()}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    {new Date(book.createdAt).toLocaleDateString()}
                   </TableCell>
                   <TableCell>
                     <button

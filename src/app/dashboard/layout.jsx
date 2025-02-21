@@ -8,7 +8,7 @@ export default function layout({ children }) {
       <div className='w-[20%] h-screen z-50 sticky top-0 left-0'>
       <SidebarDashboard />
       </div>
-      <div className='md:px-9 py-14 md:py-5 w-full'>{children}</div>
+      <div className='md:px-9 py-14 md:py-5 w-full bg-gray-100'>{children}</div>
     </div>
   )
 }
